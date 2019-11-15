@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+# KYIV MEDIA 15.11.2019
 # Create your views here.
 def home_view(request,*args,**kwargs):
     return render(request,"home.html",{})
