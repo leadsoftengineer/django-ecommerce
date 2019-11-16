@@ -1,8 +1,9 @@
-<!-- KYIV MEDIA 15.11.19-->
+<!-- KYIV MEDIA 16.11.19-->
 {% extends 'base.html' %}
 
 {% block content%}
 <h1>{{object.title}}</h1>
 <p>{% if object.description  != '' %}{{object.description}}{%else%}Comming soon ...</p>
 {% endif %}
+<p>{{ object.price }}</p>
 {% endblock %}
