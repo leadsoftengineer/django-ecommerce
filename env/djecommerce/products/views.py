@@ -3,19 +3,19 @@ from django.shortcuts import render
 from .forms import ProductForm, RawProductForm
 from .models import Product
 # Create your views here.
-def product_create_view(request):
-    my_form = RawProductForm()
-    if request.method == "POST":
-        my_form = RawProductForm(request.POST)
-        if my_form.is_valid():
-            print(my_form.cleaned_data)
-            Product.objects.create(**my_form.cleaned_data)
-        else:
-            print(my_form.errors)
-    context = {
-        "form":my_form
-    }
-    return render(request, "products/product_create.html", context)
+# def product_create_view(request):
+#     my_form = RawProductForm()
+#     if request.method == "POST":
+#         my_form = RawProductForm(request.POST)
+#         if my_form.is_valid():
+#             print(my_form.cleaned_data)
+#             Product.objects.create(**my_form.cleaned_data)
+#         else:
+#             print(my_form.errors)
+#     context = {
+#         "form":my_form
+#     }
+#     return render(request, "products/product_create.html", context)
 
 # def product_create_view(request):
 #     #print(request.POST)
@@ -26,15 +26,15 @@ def product_create_view(request):
 #     context = {}
 #     return render(request, "products/product_create.html", context)
 
-# def product_create_view(request):
-#      form = ProductForm(request.POST or None)
-#      if form.is_valid():
-#          form.save()
-#
-#      context ={
-#                'form': form
-#      }
-#      return render(request,"products/product_create.html", context)
+def product_create_view(request):
+     form = ProductForm(request.POST or None)
+     if form.is_valid():
+         form.save()
+
+     context ={
+               'form': form
+     }
+     return render(request,"products/product_create.html", context)
 # Create your views here.
 def product_detail_view(request):
      obj = Product.objects.get(id=1)
@@ -46,12 +46,24 @@ def product_detail_view(request):
      }
      return render(request,"products/product_detail.html", context)
 
-def render_initial_data(request):
+# Create view with initial data
+def product_initial_data(request):
+
     initial_data={
+         'title': "This is awesome title"
 
     }
-    form= RawProductForm(request.POST or None)
+    obj = Product.objects.get(id=1)
+
+    form= RawProductForm(request.POST or None, initial=initial_data)
     context={
         'form':form
     }
     return  render(request, "products/product_create.html",context)
+# Create dynamic_lookup_view
+def dynamic_lookup_view(request,my_id):
+    obj = Product.objects.get(id=my_id)
+    context ={
+        "object":obj
+    }
+    return render(request, "products/product_detail.html", context)
