@@ -45,3 +45,13 @@ def product_detail_view(request):
          'object': obj
      }
      return render(request,"products/product_detail.html", context)
+
+def render_initial_data(request):
+    initial_data={
+
+    }
+    form= RawProductForm(request.POST or None)
+    context={
+        'form':form
+    }
+    return  render(request, "products/product_create.html",context)
