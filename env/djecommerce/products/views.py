@@ -67,6 +67,8 @@ def dynamic_lookup_view(request,my_id):
         "object":obj
     }
     return render(request, "products/product_detail.html", context)
+
+# Create a product_delete_view
 def product_delete_view(request, id):
     obj = get_object_or_404(Product, id=id)
     #POST request
@@ -77,3 +79,12 @@ def product_delete_view(request, id):
         "object": obj
     }
     return render(request, "products/product_delete.html", context)
+
+# Create a product_list_view
+def product_list_view(request):
+    #list of objects
+    queryset = Product.objects.all()
+    context ={
+        "object_list": queryset
+    }
+    return render(request, "products/product_list.html", context)
