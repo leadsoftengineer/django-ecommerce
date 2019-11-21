@@ -1,5 +1,5 @@
 #KYIV MEDIA 19.11.19
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from .forms import ProductForm, RawProductForm
 from .models import Product
 # Create your views here.
@@ -62,8 +62,18 @@ def product_initial_data(request):
     return  render(request, "products/product_create.html",context)
 # Create dynamic_lookup_view
 def dynamic_lookup_view(request,my_id):
-    obj = Product.objects.get(id=my_id)
+    obj = get_object_or_404(Product,id=my_id)
     context ={
         "object":obj
     }
     return render(request, "products/product_detail.html", context)
+def product_delete_view(request, id):
+    obj = get_object_or_404(Product, id=id)
+    #POST request
+    if request.method == "POST":
+        #confirming delete
+        obj.delete()
+    context={
+        "object": obj
+    }
+    return render(request, "products/product_delete.html", context)
